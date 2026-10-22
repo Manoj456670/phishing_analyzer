@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Email Analyzer | PS3</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <span class="icon">🛡️</span>
+            <div>
+                <strong>PHISHING EMAIL ANALYZER</strong>
+                <small>PS 3 • Cybersecurity Rule-Based Engine</small>
+            </div>
+        </div>
+        <div class="badge">SCAN • FLAG • EXPLAIN</div>
+    </header>
+
+    <main class="container">
+        <!-- Input Section -->
+        <section class="card upload-card">
+            <h2>Inspect an Email</h2>
+            <p class="subtitle">Upload a <code>.eml</code> file or paste raw email RFC headers and body.</p>
+
+            <div class="tabs">
+                <button class="tab-btn active" id="tabUploadBtn">Upload .EML File</button>
+                <button class="tab-btn" id="tabPasteBtn">Paste Raw Email</button>
+            </div>
+
+            <!-- Upload Area -->
+            <div id="uploadPane" class="tab-pane active">
+                <div class="drop-zone" id="dropZone">
+                    <span class="drop-icon">📁</span>
+                    <p>Drag and drop your <strong>.eml</strong> file here, or <span class="browse-link">browse</span></p>
+                    <input type="file" id="fileInput" accept=".eml" hidden>
+                    <span id="fileNameDisplay" class="file-name"></span>
+                </div>
+            </div>
+
+            <!-- Raw Text Area -->
+            <div id="pastePane" class="tab-pane">
+                <textarea id="rawEmailInput" rows="7" placeholder="From: PayPal Support <support@paypa1.com>&#10;Reply-To: attacker@gmail.com&#10;Subject: Urgent: Verify Account Immediately&#10;&#10;Please verify your account right now or it will be suspended..."></textarea>
+            </div>
+
+            <button id="analyzeBtn" class="btn primary-btn">
+                <span>⚡ Analyze Email</span>
+            </button>
+            <div id="loader" class="loader hidden"></div>
+        </section>
+
+        <!-- Results Dashboard -->
+        <section id="resultsSection" class="results-container hidden">
+            <!-- Verdict Banner -->
+            <div id="verdictBanner" class="card verdict-card">
+                <div class="verdict-header">
+                    <div>
+                        <span class="verdict-label">VERDICT</span>
+                        <h1 id="verdictText">SAFE</h1>
+                    </div>
+                    <div class="score-circle" id="scoreCircle">
+                        <span id="scoreValue">0</span>
+                        <small>RISK PTS</small>
+                    </div>
+                </div>
+                <p id="verdictSummary" class="verdict-subtext"></p>
+            </div>
+
+            <div class="grid-2">
+                <!-- Metadata Card -->
+                <div class="card">
+                    <h3>✉️ Parsed Header Metadata</h3>
+                    <ul class="meta-list">
+                        <li><strong>From:</strong> <span id="metaFrom"></span></li>
+                        <li><strong>Reply-To:</strong> <span id="metaReplyTo"></span></li>
+                        <li><strong>Subject:</strong> <span id="metaSubject"></span></li>
+                        <li><strong>Date:</strong> <span id="metaDate"></span></li>
+                        <li><strong>Attachments:</strong> <span id="metaAttachments"></span></li>
+                    </ul>
+                </div>
+
+                <!-- Scoring Guide Reference -->
+                <div class="card scoring-guide">
+                    <h3>📊 PS3 Scoring Scale</h3>
+                    <div class="score-range safe"><span>0 – 2 pts</span> <strong>SAFE</strong></div>
+                    <div class="score-range suspicious"><span>3 – 5 pts</span> <strong>SUSPICIOUS</strong></div>
+                    <div class="score-range phishing"><span>6+ pts</span> <strong>PHISHING</strong></div>
+                </div>
+            </div>
+
+            <!-- Flagged Evidence & Explanations -->
+            <div class="card">
+                <h3>🔍 Flagged Indicators & Explanations</h3>
+                <div id="flagsContainer" class="flags-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
